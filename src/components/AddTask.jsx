@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function AddTask({ onAddTask }) {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
-  console.log(text);
+
   const addTask = () => {
     // check if  the task is not empty
     if (text.trim() !== "") {
@@ -19,6 +19,7 @@ export default function AddTask({ onAddTask }) {
   const handleKeyPress = (e) => {
     e.key === "Enter" && addTask();
   };
+
   return (
     <>
       <div className="flex gap-x-4">
