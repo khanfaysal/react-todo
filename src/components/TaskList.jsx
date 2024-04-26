@@ -1,17 +1,15 @@
 /* eslint-disable react/prop-types */
-
+import { useState } from "react";
 export default function TaskList({ tasks, onDeleteTask, onChangeTask }) {
   if (tasks.length === 0) {
     return <p className="mt-1">There is no exists task right now!</p>;
   }
-  console.log(tasks, "tasks");
   return (
     <div>
       <ul>
-        {tasks.map((task, index) => (
+        {tasks.map((task) => (
           <li className="flex gap-x-2 mt-2" key={task.id}>
             <Task task={task} onDelete={onDeleteTask} onChange={onChangeTask} />
-            <p>{`${index + 1}. ${task.text}`}</p>
           </li>
         ))}
       </ul>
@@ -20,22 +18,55 @@ export default function TaskList({ tasks, onDeleteTask, onChangeTask }) {
 }
 
 function Task({ task, onDelete, onChange }) {
-  return (
-    <>
-      <label htmlFor="">
+  const [isEditing, setIsEditing] = useState(false);
+  let taskContent;
+  if (isEditing) {
+    taskContent = (
+      <>
         <input
-          type="checkbox"
+          value={task.text}
           onChange={(e) => {
-            onChange({ ...task, done: e.target.checked });
+            onChange({ ...task, text: e.target.value });
           }}
+          className="bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 transition-colors duration-200 ease-in-out px-3"
         />
-      </label>
+        <button
+          className="border rounded bg-red-400 p-1"
+          onClick={() => setIsEditing(false)}
+        >
+          Save
+        </button>
+      </>
+    );
+  } else {
+    taskContent = (
+      <>
+        <p>{task.text}</p>
+        <button
+          className="border rounded bg-red-400 p-1"
+          onClick={() => setIsEditing(true)}
+        >
+          Edit
+        </button>
+      </>
+    );
+  }
+  return (
+    <div className="flex items-center">
+      <input
+        type="checkbox"
+        onChange={(e) => {
+          onChange({ ...task, done: e.target.checked });
+        }}
+        checked={task.done}
+      />
+      {taskContent}
       <button
         className="border rounded bg-red-400 p-1"
         onClick={() => onDelete(task.id)}
       >
         Delete
       </button>
-    </>
+    </div>
   );
 }

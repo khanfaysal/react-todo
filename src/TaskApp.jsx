@@ -20,7 +20,7 @@ export default function TaskApp() {
         if (t.id === task.id) {
           return task;
         } else {
-          return task;
+          return t;
         }
       })
     );
