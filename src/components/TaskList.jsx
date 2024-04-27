@@ -31,7 +31,7 @@ function Task({ task, onDelete, onChange }) {
           className="bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 transition-colors duration-200 ease-in-out px-3"
         />
         <button
-          className="border rounded bg-red-400 p-1"
+          className="mx-1 rounded bg-indigo-500 text-white text-sm py-[3px] px-2"
           onClick={() => setIsEditing(false)}
         >
           Save
@@ -43,7 +43,7 @@ function Task({ task, onDelete, onChange }) {
       <>
         <p>{task.text}</p>
         <button
-          className="border rounded bg-red-400 p-1"
+          className="mx-1 rounded bg-indigo-500 text-white text-sm py-[3px] px-2"
           onClick={() => setIsEditing(true)}
         >
           Edit
@@ -59,10 +59,11 @@ function Task({ task, onDelete, onChange }) {
           onChange({ ...task, done: e.target.checked });
         }}
         checked={task.done}
+        className="mr-2"
       />
       {taskContent}
       <button
-        className="border rounded bg-red-400 p-1"
+        className="rounded bg-red-500 text-black text-sm py-[3px] px-2"
         onClick={() => onDelete(task.id)}
       >
         Delete
